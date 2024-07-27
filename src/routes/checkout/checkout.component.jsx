@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, memo } from 'react';
 
 import { CartContext } from '../../contexts/cart.context';
 
@@ -11,7 +11,7 @@ import {
   Total,
 } from './checkout.styles';
 
-const Checkout = () => {
+const Checkout = memo(() => {
   const { cartItems, cartTotal } = useContext(CartContext);
 
   return (
@@ -39,6 +39,6 @@ const Checkout = () => {
       <Total>Total: ${cartTotal}</Total>
     </CheckoutContainer>
   );
-};
+});
 
 export default Checkout;

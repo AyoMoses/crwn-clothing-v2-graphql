@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useCallback, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { CartContext } from '../../contexts/cart.context';
@@ -12,13 +12,14 @@ import {
   CartItems,
 } from './cart-dropdown.styles';
 
-const CartDropdown = () => {
+const CartDropdown = memo(() => {
   const { cartItems } = useContext(CartContext);
   const navigate = useNavigate();
 
-  const goToCheckoutHandler = () => {
+  // with useCallback our function is now memoized and each time the component reruns, it does not have to rerun the function
+  const goToCheckoutHandler = useCallback(() => {
     navigate('/checkout');
-  };
+  }, [navigate]);
 
   return (
     <CartDropdownContainer>
@@ -32,6 +33,6 @@ const CartDropdown = () => {
       <Button onClick={goToCheckoutHandler}>GO TO CHECKOUT</Button>
     </CartDropdownContainer>
   );
-};
+});
 
 export default CartDropdown;
